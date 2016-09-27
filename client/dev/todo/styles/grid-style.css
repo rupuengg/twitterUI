@@ -1,0 +1,7 @@
+.grid-custom{
+	display: block;
+}
+.grid-box{
+	display:inline;
+	border:1px solid #dddddd;
+}

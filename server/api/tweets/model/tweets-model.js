@@ -8,4 +8,4 @@ const _todoSchema = {
     createdAt: {type: Date, default: Date.now}
 }
 
-module.exports = mongoose.Schema(_todoSchema,{collection:'todos'});
+module.exports = mongoose.Schema(_todoSchema);

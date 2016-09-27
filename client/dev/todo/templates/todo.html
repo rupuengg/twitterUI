@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="todo-panel transition">
+  <!-- <div class="todo-panel transition">
 
     <form name="TodoForm"
           ng-submit="todoCtrl.createTodo(todoCtrl.todo)" >
@@ -15,17 +15,36 @@
 
         <input type="text"
                class="form-control input-lg"
-               placeholder="Sooo... what are you doing today? ;)"
-               ng-model="todoCtrl.todo.todoMessage"
-               name="todoMsg"
+               placeholder="Title?"
+               ng-model="todoCtrl.todo.todoTitle"
+               name="todoTitle"
                maxlength="100"
                ng-maxlength="100"
                ng-minlength="5"
                required
                autofocus />
 
-        <ng-messages for="TodoForm.todoMsg.$error">
-          <ng-message when="required" class="error-msg">Todo field is required</ng-message>
+        <ng-messages for="TodoForm.todoTitle.$error">
+          <ng-message when="required" class="error-msg">Todo title field is required</ng-message>
+          <ng-message when="minlength" class="error-msg">Min of 5 chars</ng-message>
+          <ng-message when="maxlength" class="error-msg">Max of 100 chars</ng-message>
+        </ng-messages>
+
+        <br /><br />
+
+        <input type="text"
+               class="form-control input-lg"
+               placeholder="Description?"
+               ng-model="todoCtrl.todo.todoDescription"
+               name="todoDescription"
+               maxlength="100"
+               ng-maxlength="100"
+               ng-minlength="5"
+               required
+               autofocus />
+
+        <ng-messages for="TodoForm.todoDescription.$error">
+          <ng-message when="required" class="error-msg">Todo description field is required</ng-message>
           <ng-message when="minlength" class="error-msg">Min of 5 chars</ng-message>
           <ng-message when="maxlength" class="error-msg">Max of 100 chars</ng-message>
         </ng-messages>
@@ -36,14 +55,16 @@
           <tbody>
             <tr ng-repeat="t in todoCtrl.todos | orderBy: '-createdAt'">
               <td class="text-muted todo-in-todos">
-                <span ng-bind="t.todoMessage"></span>
-                <div class="todo-done transition"
-                     ng-click="todoCtrl.deleteTodo(t._id)">x</div>
+                <p ng-bind="t.todoTitle"></p>
+                <span ng-bind="t.todoDescription"></span>
+                <div class="todo-done transition" ng-click="todoCtrl.deleteTodo(t._id)">x</div>
               </td>
 
             </tr>
           </tbody>
         </table>
+
+        
 
         <div ng-if="!todoCtrl.todos.length">
           <h3 class="text-muted text-center">Nothing to do. Go play outside :D</h3>
@@ -62,5 +83,11 @@
 
     </form>
 
+  </div> -->
+
+  <div class="well col-lg-4 p-r-1" ng-repeat="t in todoCtrl.todos | orderBy: '-createdAt'">
+    <div ng-bind=t.todoTitle></div>
+    <div ng-bind=t.todoDescription></div>
   </div>
+
 </div>
