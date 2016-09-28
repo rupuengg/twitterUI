@@ -10,7 +10,11 @@ module.exports = class TweetsRoutes {
         .post(TweetsController.createTweets);
 
       router
-        .route('/api/todos/:id')
+        .route('/api/tweets/:id')
         .delete(TweetsController.deleteTweets);
+
+      router
+        .route('/api/tweets/:date')
+        .delete(TweetsController.getTweetedAfter);  
     }
 }

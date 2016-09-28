@@ -1,7 +1,23 @@
-.grid-custom{
-	display: block;
+
+.m-b-10{
+	margin-bottom:30px;
 }
-.grid-box{
-	display:inline;
-	border:1px solid #dddddd;
+.height-fixed{
+	height:280px;
+	//padding: 0px
 }
+.tweet{
+	-webkit-transition: padding 0.5s ease-in-out; 
+    -moz-transition: padding 0.5s ease-in-out; 
+    -o-transition: padding 0.5s ease-in-out; 
+    transition: padding 0.5s ease-in-out;
+}
+.tweet:hover{
+	padding:2px;
+	cursor: pointer;
+    z-index: 1;
+    position: relative;
+}
+
+
+

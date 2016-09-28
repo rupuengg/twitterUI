@@ -9,23 +9,37 @@ tweetsSchema.statics.getAll = () => {
     return new Promise((resolve, reject) => {
         let _query = {};
 
-        Todo
+        Tweets
           .find(_query)
-          .exec((err, todos) => {
+          .sort({'tweetedAt':-1})
+          .exec((err, tweets) => {
               err ? reject(err)
-                  : resolve(todos);
+                  : resolve(tweets);
           });
       });
 }
 
-tweetsSchema.statics.createTweets = (todo) => {
+tweetsSchema.statics.getTweetedAfter = function(date){
     return new Promise((resolve, reject) => {
-      if (!_.isObject(todo))
-          return reject(new TypeError('Todo is not a valid object.'));
+        let _query = {'tweetedAt':{$gt:date}}
+        Tweets
+          .find(_query)
+          .sort({'tweetedAt':-1})
+          .exec((err, tweets) => {
+              err ? reject(err)
+                  : resolve(tweets);
+          });
+      });
+}
 
-      let _todo = new Todo(todo);
+tweetsSchema.statics.createTweets = (tweet) => {
+    return new Promise((resolve, reject) => {
+      if (!_.isObject(tweet))
+          return reject(new TypeError('Tweets is not a valid object.'));
 
-      _todo.save((err, saved) => {
+      let _tweet = new Tweets(tweet);
+
+      _tweet.save((err, saved) => {
         err ? reject(err)
             : resolve(saved);
       });
@@ -37,7 +51,7 @@ tweetsSchema.statics.deleteTweets = (id) => {
         if (!_.isString(id))
             return reject(new TypeError('Id is not a valid string.'));
 
-        Todo
+        Tweets
           .findByIdAndRemove(id)
           .exec((err, deleted) => {
               err ? reject(err)
@@ -46,6 +60,6 @@ tweetsSchema.statics.deleteTweets = (id) => {
     });
 }
 
-const Tweets  = mongoose.model('Tweets', tweetsSchema);
+const Tweets  = mongoose.model('Tweet', tweetsSchema);
 
 module.exports = Tweets;

@@ -6,16 +6,23 @@ module.exports = class TweetsController {
   static getAll(req, res) {
       TweetsDAO
         .getAll()
-        .then(todos => res.status(200).json(todos))
+        .then(tweets => res.status(200).json(tweets))
+        .catch(error => res.status(400).json(error));
+  }
+
+  static getTweetedAfter(req, res) {
+      TweetsDAO
+        .getTweetedAfter(req.body)
+        .then(tweets => res.status(200).json(tweets))
         .catch(error => res.status(400).json(error));
   }
 
   static createTweets(req, res) {
-      let _todo = req.body;
+      let _tweet = req.body;
 
       TweetsDAO
-        .createTodo(_todo)
-        .then(todo => res.status(201).json(todo))
+        .createTodo(_tweet)
+        .then(tweet => res.status(201).json(tweet))
         .catch(error => res.status(400).json(error));
   }
 

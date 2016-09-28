@@ -7,9 +7,9 @@
       function($routeProvider) {
         $routeProvider
           .when('/', {
-            templateUrl: 'todo/templates/todo.html',
-            controller: 'TodoController',
-            controllerAs: 'todoCtrl'
+            templateUrl: 'tweets/templates/tweets.html',
+            controller: 'TweetsController',
+            controllerAs: 'tweetsCtrl'
           })
           .otherwise({
             redirectTo: '/'

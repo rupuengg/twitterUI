@@ -2,10 +2,21 @@
 
 const mongoose = require('mongoose');
 
-const _todoSchema = {
-    todoTitle: {type: String, required: true, trim: true},
-    todoDescription: {type: String, required: true, trim: true},
-    createdAt: {type: Date, default: Date.now}
+const _tweetSchema = {
+	tweetId : String,
+	hashTagArray:[],
+	userMentionedNames:[],
+	popularTag : {
+		name : String,
+		count : Number
+	},
+	name : String,
+	userLocation : String,
+	screenName : String,
+	text : String,
+	tweetedAt : String,
+	followerCount : Number,
+	subject : String
 }
 
-module.exports = mongoose.Schema(_todoSchema);
+module.exports = mongoose.Schema(_tweetSchema);
