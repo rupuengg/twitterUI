@@ -11,7 +11,7 @@ tweetsSchema.statics.getAll = () => {
 
         Tweets
           .find(_query)
-          .sort({'tweetedAt':-1})
+          .sort({tweetedAt:-1})
           .exec((err, tweets) => {
               err ? reject(err)
                   : resolve(tweets);

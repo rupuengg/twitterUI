@@ -3,7 +3,7 @@
 	margin-bottom:30px;
 }
 .height-fixed{
-	height:280px;
+	height:auto;
 	//padding: 0px
 }
 .tweet{
@@ -11,13 +11,30 @@
     -moz-transition: padding 0.5s ease-in-out; 
     -o-transition: padding 0.5s ease-in-out; 
     transition: padding 0.5s ease-in-out;
+    font-size:12px;
+    border-color: #77c7f7;
+    background-color:#77c7f7;
 }
-.tweet:hover{
+/*.tweet:hover{
 	padding:2px;
 	cursor: pointer;
     z-index: 1;
     position: relative;
+}*/
+.tweet p{
+	color:#000;
 }
 
-
-
+.tweet p a{
+	text-decoration:none;
+	color:#ffffff;
+}
+.tweet p.tweet-text{
+	height:70px;
+}
+.tweet span.tweet{
+	background:url('images/tweet-button.jpg') no-repeat;width:14px;height:10px;
+}
+.tweet span.reply{
+	background:url('images/tweet_reply.gif') no-repeat;width:14px;height:10px;
+}

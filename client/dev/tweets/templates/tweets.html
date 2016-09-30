@@ -1,20 +1,35 @@
-<div class="container">
-  <div class="tweet col-lg-4" ng-repeat="t in tweetsCtrl.tweets | orderBy: '-tweetedAt'">
-    <a target="_blank" ng-href="https://twitter.com/sample/status/{{t.tweetId}}">
-      <div class="well col-lg-12 m-b-10 height-fixed">
-        <p>Tweet Id : <span ng-bind=t.tweetId></span></p>
-        <p>Popularity Count : <span ng-bind=t.popularTag.count></span></p>
-        <p>Tweeted At : <span ng-bind=new Date(t.tweetedAt)></span></p>
-        <p>Follower Count : <span ng-bind=t.followerCount></span></p>
-        <p style="height:90px">Text : <span ng-bind=t.text></span></p>
-        <div class="pull-right">
-          <span class="glyphicon glyphicon-arrow-left"></span>
-          <span class="glyphicon glyphicon-refresh"></span>
-          <span class="glyphicon glyphicon-envelope"></span>
-          <span class="glyphicon glyphicon-share"></span>
-        </div>
-        <p ng-if="tweetsCtrl.new_tweets.indexOf(t.tweetId)>=0">New tweet</p>
+<div class="container tweet-container">
+  <div class="col-lg-4 height-fixed" ng-repeat="t in tweetsCtrl.tweets | orderBy: '-tweetedAt'">
+    <div class="tweet well col-lg-12">
+      <p>
+        <strong>Tweet Id : </strong>
+        <a target="_blank" ng-href="https://twitter.com/sample/status/{{t.tweetId}}">
+          <span ng-bind=t.tweetId></span>
+        </a>
+      </p>
+      <p><strong>Occurance : </strong><span ng-bind-template="{{t.popularTag.count}} ({{t.popularTag.name}} in last 6hrs)"></span></p>
+      <p>
+        <strong>Tweeted By : </strong>
+        <a target="_blank" ng-href="https://twitter.com/{{t.screenName}}">
+          <span ng-bind-template="@{{t.screenName}}"></span>
+        </a>
+      </p>
+      <p><strong>Followers : </strong><span ng-bind=t.followerCount></span></p>
+      <p><strong>Tweeted At : </strong><span>{{t.tweetedAt|date:'short'}}</span></p>
+      <p class="tweet-text"><strong>Tweet : </strong><span ng-bind=t.text></span></p>
+      <div class="pull-right">
+        <div class="reply-icon pull-left cursor"></div>
+        <div class="retweet-icon pull-left cursor"></div>
+        <div class="mail-icon pull-left cursor"></div>
+        <div class="share-icon pull-left cursor"></div>
+        <div class="follower-icon pull-left cursor"></div>
+        <!-- <span class="glyphicon glyphicon-arrow-left"></span>
+        <span class="glyphicon glyphicon-retweet"></span>
+        <span class="glyphicon glyphicon-envelope"></span>
+        <span class="glyphicon glyphicon-share"></span>
+        <span class="glyphicon glyphicon-user-follow"></span> -->
       </div>
-    </a>
+      <p ng-if="tweetsCtrl.new_tweets.indexOf(t.tweetId)>=0">New tweet</p>
+    </div>
   </div>
 </div>

@@ -1,7 +1,84 @@
-.grid-custom{
-	display: block;
+header{
+	z-index: 0;
 }
-.grid-box{
-	display:inline;
-	border:1px solid #dddddd;
+.color-tw{
+	background-color:#1DA1F2;
+	border-color:#1DA1F2;
+}
+.m-b-10{
+	margin-bottom:30px;
+}
+.height-fixed{
+	height:auto;
+	//padding: 0px
+}
+.tweet-container{
+	position: static;
+}
+.tweet{
+	-webkit-transition: transform 0.5s ease-in-out; 
+    -moz-transition: transform 0.5s ease-in-out; 
+    -o-transition: transform 0.5s ease-in-out; 
+    transition: transform 0.5s ease-in-out;
+    font-size:12px;
+    background-color:#ffffff;
+    border:1px solid #EFEFEF;
+    box-shadow:2px 1px 15px 12px #EFEFEF;/*#EFEFEF*/
+    transform: none;
+}
+.tweet:hover{
+	transform:scale(1.1,1.1);
+	cursor: pointer;
+    z-index: 1;
+    position: relative;
+}
+.cursor{
+	cursor:pointer;
+}
+.tweet p{
+	color:#000;
+}
+
+.tweet p a{
+	text-decoration:none;
+	color:#1DA1F2;
+}
+.tweet p.tweet-text{
+	height:70px;
+}
+
+.tweet .reply-icon{
+	background:url('images/tw_reply.PNG') no-repeat;
+	width:26px;
+	height:23px;
+	background-size: contain;
+	margin-left:10px;
+}
+.tweet .retweet-icon{
+	background:url('images/tw_retweet.PNG') no-repeat;
+	width:25px;
+	height:23px;
+	background-size: contain;
+	margin-left:10px;
+}
+.tweet .mail-icon{
+	background:url('images/tw-mail.PNG') no-repeat;
+	width:23px;
+	height:20px;
+	background-size: contain;
+	margin-left:10px;
+}
+.tweet .share-icon{
+	background:url('images/tw-share.PNG') no-repeat;
+	width:20px;
+	height:20px;
+	background-size: contain;
+	margin-left:10px;
+}
+.tweet .follower-icon{
+	background:url('images/tw-follower.PNG') no-repeat;
+	width:25px;
+	height:25px;
+	background-size: contain;
+	margin-left:10px;
 }
