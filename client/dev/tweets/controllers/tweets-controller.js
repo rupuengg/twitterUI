@@ -46,7 +46,9 @@
                 set_prev_tweets();
                 self.prevLength = self.tweets.length;
               }
-              console.log(self);
+              self.tweets=self.tweets.filter(function(tweets){
+                return !(tweets.subject.indexOf('Loose')>=0);
+              });
               return self.tweets;
             })
             .catch($log.error);
@@ -69,7 +71,7 @@
         }
 
         _getAll();
-        // $interval(_getAll, 10000);        
+         $interval(_getAll, 10*60*1000);        
 
         return self;
       }
