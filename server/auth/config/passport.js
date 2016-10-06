@@ -5,19 +5,19 @@ var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 
 // load up the user model
-var User = require('../auth/models/user');
+var User = require('../models/user');
 
 // load the auth configurations
 var configAuth = require('./auth');
 
 module.exports = function(passport){
 	// used to serilalize the user for session
-	passport.serilalizeUser(function(user, done){
+	passport.serializeUser(function(user, done){
 		done(null, user.id);
 	});
 
 	// used to deserilalize the user
-	passport.deserilalize(function(id, done){
+	passport.deserializeUser(function(id, done){
 		User.findById('id', function(err, user){
 			done(err, user);
 		});
@@ -31,7 +31,7 @@ module.exports = function(passport){
 	passport.use(new TwitterStrategy({
 		consumerKey:configAuth.twitterAuth.consumerKey,
 		consumerSecret:configAuth.twitterAuth.consumerSecret,
-		callbackURL:configAuth.twitterAuth.callbackURL;
+		callbackURL:configAuth.twitterAuth.callbackURL
 	}, function(token, tokenSecret, profile, done){
 		// make the code asynchronous
 		// User.findOne won't fire until we have all our data back from twitter

@@ -7,6 +7,9 @@
       function($routeProvider) {
         $routeProvider
           .when('/', {
+            templateUrl: 'auth/index.html'
+          })
+          .when('/tweets', {
             templateUrl: 'tweets/templates/tweets.html',
             controller: 'TweetsController',
             controllerAs: 'tweetsCtrl'
