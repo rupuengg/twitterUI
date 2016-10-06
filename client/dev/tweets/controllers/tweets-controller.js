@@ -71,7 +71,8 @@
         }
 
         _getAll();
-         $interval(_getAll, 10*60*1000);        
+        $interval(_getAll, 10*60*1000);        
+        // $interval(_getAll, 10000);        
 
         return self;
       }
