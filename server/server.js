@@ -15,14 +15,11 @@ const DBConfig = require('./config/db.conf');
 const Routes = require('./routes/index');
 const session = require('express-session');
 const flash = require('connect-flash');
+// const cookieParser = require('cookie-parser');
 
 require('./auth/config/passport')(passport);
 
 const app = express();
-
-RoutesConfig.init(app);
-DBConfig.init();
-Routes.init(app, express.Router());
 
 app.use(session({
     secret: 'ilovescotchscotchyscotchscotch', // session secret
@@ -31,9 +28,14 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+// app.use(cookieParser());
 app.use(flash());
 
 require('./auth/routes')(app, passport);
+
+RoutesConfig.init(app);
+DBConfig.init();
+Routes.init(app, express.Router());
 
 const opts = {
   key: fs.readFileSync(__dirname + '/cert/server.key'),
