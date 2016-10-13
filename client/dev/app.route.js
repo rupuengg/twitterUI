@@ -10,7 +10,6 @@
             templateUrl: 'auth/index.html'
           })
           .when('/auth/twitter', {
-
           })
           .when('/profile', {
             templateUrl: 'auth/profile.html'

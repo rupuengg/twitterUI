@@ -15,7 +15,7 @@ const DBConfig = require('./config/db.conf');
 const Routes = require('./routes/index');
 const session = require('express-session');
 const flash = require('connect-flash');
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 require('./auth/config/passport')(passport);
 
@@ -28,7 +28,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(flash());
 
 require('./auth/routes')(app, passport);
