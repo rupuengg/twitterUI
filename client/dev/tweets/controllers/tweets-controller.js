@@ -2,7 +2,7 @@
   'use strict';
 
   ng.module('twitterUI')
-    .controller('TweetsController', [
+    .controller('tweetsController', [
       '$log',
       'Tweets',
       'TweetsDAO',

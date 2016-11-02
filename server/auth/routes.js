@@ -16,7 +16,9 @@ module.exports = function(app, passport){
 	// route for showing the profile page
 	app.get('/profile', isLoggedIn, function(req, res){
 		// StaticDispatcher.sendIndex(req, res);
-		res.json({loggedIn:true});
+		res.render('index.html',{success:true});
+		//res.sendFile(process.cwd()+'/client/dev/tweets/templates/tweets.html');
+		
 	});
 
 	// route for logging out

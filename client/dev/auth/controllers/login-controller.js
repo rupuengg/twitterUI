@@ -2,11 +2,9 @@
 	'use strict';
 	ng.module('twitterUI').controller('loginController',function(loginService){
 		var self = this;
-
+		console.log('login ctrl');
 		self.login=function(){
-			loginService.login().then(function(response){
-				console.log('response',response);
-			});
+			loginService.login();
 		};
 	});
 }(window.angular));

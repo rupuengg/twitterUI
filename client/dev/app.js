@@ -3,7 +3,7 @@
 
   ng.module('twitterUI', [
       'ngResource',
-      'ngRoute',
+      'ui.router',
       'ngMessages'
     ]);
 }(window.angular));
