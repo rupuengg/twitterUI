@@ -32,6 +32,7 @@ app.use(cookieParser());
 app.use(flash());
 
 require('./auth/routes')(app, passport);
+require('./auth/config/passport')(passport);
 
 RoutesConfig.init(app);
 DBConfig.init();

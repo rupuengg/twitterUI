@@ -4,9 +4,9 @@ module.exports = {
 
 	},
 	'twitterAuth' : {
-		'consumerKey' : 'jr9cBH7mlHjiWSRj17cKRpgSW',
-		'consumerSecret' : 'LJ0TM9BlddRn6SudaAAMV89dLZd7aWQ8AiYkxGIiX2Om2HFKOE',
-		'callbackURL' : 'https://10.0.29.18:3000/auth/twitter/callback'
+		'consumerKey' : 'MNhb5oVnInVAkYyARofMDUBmx',
+		'consumerSecret' : 'HcoWqPHiUNWLtYkVk6IUZfLLKXg6WGyvKd0CbzPTg9h4WP7FrW',
+		'callbackURL' : '/auth/twitter/callback'
 	},
 	'googleAuth' : {
 

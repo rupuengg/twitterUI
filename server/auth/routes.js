@@ -16,9 +16,7 @@ module.exports = function(app, passport){
 	// route for showing the profile page
 	app.get('/profile', isLoggedIn, function(req, res){
 		// StaticDispatcher.sendIndex(req, res);
-		res.render('profile.html', {
-			user:req.user // get the user out of session and pass to template
-		});
+		res.json({loggedIn:true});
 	});
 
 	// route for logging out
