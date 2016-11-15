@@ -12,7 +12,7 @@
     
 
     <title>Twitter Miner</title>
-    <link rel="shortcut icon" type="image/ico" href="./favicon.png"/>
+    <link rel="shortcut icon" type="image/ico" href="./tweetminer.png"/>
 
     <link type="text/css" rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css?rev=@@hash"/>
     <link type="text/css" rel="stylesheet" href="./bower_components/fontawesome/css/font-awesome.min.css?rev=@@hash"/>
@@ -27,10 +27,16 @@
   </head>
 
   <body>
-    <header style="margin-bottom:90px;">
+    <header style="margin-bottom:90px;color:#ffffff;">
         <div class="navbar navbar-inverse navbar-fixed-top color-tw" role="navigation">
-                <h1 style="color:#ffffff;">Twitter Miner</h1>
+                <span class="h1">Twitter Miner</span>
+                <% if (success) { %>
+                    <user-section name=<%-name%> picture=<%-picture%> ></user-section>
+                <%}%>
         </div>
+        
+
+       
     </header>
     <% if (success) { %>
         <div style="position:relative;" ui-view></div>
@@ -72,14 +78,25 @@
     <script type="text/javascript" src="./bower_components/angular-route/angular-route.js?rev=@@hash"></script>
     <script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="./bower_components/angular-resource/angular-resource.js?rev=@@hash"></script>
-
+ <% if (success) { %>
+<script>
+;(function(ng){
+    'use strict';
+        var user = <%- name%>;
+        console.log(user);
+        ng.module('initial', [])
+            .constant('User', user);
+            }(window.angular));
+    </script>
+     <%}%>
     <script type="text/javascript" src="./app.js?rev=@@hash"></script>
     <script type="text/javascript" src="./app.config.js?rev=@@hash"></script>
     <script type="text/javascript" src="./common/services/response-interceptor.js"></script>
     <% if (success) { %>
     <script type="text/javascript" src="./app.route.js?rev=@@hash"></script>
+    <script type="text/javascript" src="./common/directives/user-section-directive.js"></script>
     <%}%>
-
+    
     <script type="text/javascript" src="./auth/services/login-service.js"></script>
     <script type="text/javascript" src="./auth/controllers/login-controller.js"></script>
 

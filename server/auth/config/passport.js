@@ -40,7 +40,7 @@ module.exports = function(passport){
 
         // asynchronous
         process.nextTick(function() {
-
+            //console.log(profile);
             // check if the user is already logged in
             if (!req.user) {
 
@@ -52,8 +52,10 @@ module.exports = function(passport){
                         // if there is a user id already but no token (user was linked at one point and then removed)
                         if (!user.twitter.token) {
                             user.twitter.token       = token;
+                            user.twitter.tokenSecret = tokenSecret;
                             user.twitter.username    = profile.username;
                             user.twitter.displayName = profile.displayName;
+                            user.twitter.picture     = profile.photos.length?profile.photos[0].value:undefined;
 
                             user.save(function(err) {
                                 if (err)
@@ -70,8 +72,10 @@ module.exports = function(passport){
 
                         newUser.twitter.id          = profile.id;
                         newUser.twitter.token       = token;
+                        newUser.twitter.tokenSecret = tokenSecret;
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
+                        newUser.twitter.picture     = profile.photos.length?profile.photos[0].value:undefined;
 
                         newUser.save(function(err) {
                             if (err)
@@ -88,8 +92,10 @@ module.exports = function(passport){
 
                 user.twitter.id          = profile.id;
                 user.twitter.token       = token;
+                user.twitter.tokenSecret = tokenSecret;
                 user.twitter.username    = profile.username;
                 user.twitter.displayName = profile.displayName;
+                user.twitter.picture     = profile.photos.length?profile.photos[0].value:undefined;
 
                 user.save(function(err) {
                     if (err)

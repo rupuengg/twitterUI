@@ -11,8 +11,10 @@ module.exports = class TweetsController {
   }
 
   static getTweetedAfter(req, res) {
+    let date = req.params.id;
+    console.log(date);
       TweetsDAO
-        .getTweetedAfter(req.body)
+        .getTweetedAfter(date)
         .then(tweets => res.status(200).json(tweets))
         .catch(error => res.status(400).json(error));
   }
@@ -21,7 +23,7 @@ module.exports = class TweetsController {
       let _tweet = req.body;
 
       TweetsDAO
-        .createTodo(_tweet)
+        .createTweet(_tweet)
         .then(tweet => res.status(201).json(tweet))
         .catch(error => res.status(400).json(error));
   }
@@ -29,8 +31,8 @@ module.exports = class TweetsController {
   static deleteTweets(req, res) {
     let _id = req.params.id;
 
-    TodoDAO
-      .deleteTodo(_id)
+    TweetsDAO
+      .deleteTweet(_id)
       .then(() => res.status(200).end())
       .catch(error => res.status(400).json(error));
   }

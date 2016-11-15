@@ -21,11 +21,14 @@ tweetsSchema.statics.getAll = () => {
 
 tweetsSchema.statics.getTweetedAfter = function(date){
     return new Promise((resolve, reject) => {
-        let _query = {'tweetedAt':{$gt:date}}
+        date = new Date(date);
+        let _query = {tweetedAt:{$gt:date}};
+        console.log(_query);
         Tweets
           .find(_query)
           .sort({'tweetedAt':-1})
           .exec((err, tweets) => {
+            console.log(tweets);
               err ? reject(err)
                   : resolve(tweets);
           });

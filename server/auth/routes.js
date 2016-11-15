@@ -16,7 +16,13 @@ module.exports = function(app, passport){
 	// route for showing the profile page
 	app.get('/profile', isLoggedIn, function(req, res){
 		// StaticDispatcher.sendIndex(req, res);
-		res.render('index.html',{success:true});
+		var response = {
+			success:true,
+			name:JSON.stringify(req.user.twitter.username),
+			picture:JSON.stringify(req.user.twitter.picture)
+		};
+		console.log('res',response);
+		res.render('index.html',response);
 		//res.sendFile(process.cwd()+'/client/dev/tweets/templates/tweets.html');
 		
 	});

@@ -1,80 +1,68 @@
-;(function(ng) {
-  'use strict';
+;
+(function(ng) {
+    'use strict';
 
-  ng.module('twitterUI')
-    .controller('tweetsController', [
-      '$log',
-      'Tweets',
-      'TweetsDAO',
-      '$interval',
-      function($log, Tweets, TweetsDAO,$interval) {
-        var self = this;
+    ng.module('twitterUI')
+        .controller('tweetsController', [
+            '$scope',
+            '$log',
+            'TweetsDAO',
+            '$interval',
+            function($scope, $log, TweetsDAO, $interval) {
+                var self = this,
+                    latest;
 
-        self.tweet = new Tweets();
-        self.tweets = [];
-        self.previous = [];
-        self.new_tweets = [];
-        self.prevLength = 0;
-        console.log(self);
+                self.tweets = [];
+                
+                self.createTweet = function(tweet) { 
+                    TweetsDAO
+                        .createTweet(tweet)
+                        .then(function(newTweet) {
+                            self.tweets.push(newTweet);
+                        })
+                        .catch($log.error);
+                };
 
-        self.createTodo = function(tweet) {
-          TweetsDAO
-            .createTodo(tweet)
-            .then(function(newTweet) {
-              self.tweets.push(newTweet);
-              self.tweet = new Tweet();
-            })
-            .catch($log.error);
-        };
-
-        function _getAll() {
-          return TweetsDAO
-            .getAll()
-            .then(function(tweets) {
-              self.tweets = tweets;
-              if(self.previous.length == 0){
-                set_prev_tweets();
-                self.prevLength = self.tweets.length;
-              }
-              self.new_tweets = [];
-              if(self.tweets.length > self.prevLength){
-                for(var a in self.tweets){
-                  if(self.previous.indexOf(self.tweets[a].tweetId) < 0){
-                    self.new_tweets.push(self.tweets[a].tweetId);
-                  }
+                function _getAll() {
+                    TweetsDAO
+                        .getAll()
+                        .then(function(tweets) {
+                            
+                            self.tweets = tweets.filter(function(tweets) {
+                                return !(tweets.subject.indexOf('Loose') >= 0 || tweets.subject.indexOf('Jobs') >= 0);
+                            });
+                            if (self.tweets.length)
+                                latest = self.tweets[0].tweetedAt;
+                        })
+                        .catch($log.error);
                 }
-                set_prev_tweets();
-                self.prevLength = self.tweets.length;
-              }
-              self.tweets=self.tweets.filter(function(tweets){
-                return !(tweets.subject.indexOf('Loose')>=0);
-              });
-              return self.tweets;
-            })
-            .catch($log.error);
-        }
 
-        self.deleteTodo = function(id) {
-          TweetsDAO
-            .deleteTodo(id)
-            .then(function() {
-              return _getAll();
-            })
-            .catch($log.error);
-        };
+                self.deleteTweet = function(id) {
+                    TweetsDAO
+                        .deleteTweet(id)
+                        .then(function() {
+                            _getAll();
+                        })
+                        .catch($log.error);
+                };
 
-        function set_prev_tweets(){
-          if(self.previous.length > 0) self.previous = [];
-          for(var a in self.tweets){
-            self.previous.push(self.tweets[a].tweetId);
-          }
-        }
+                function getTweetsBeyond(date) {
+                    TweetsDAO.getTweetsBeyond(date)
+                        .then(function(tweets) {
+                            self.tweets = tweets.concat(self.tweets);
+                        })
+                        .catch($log.error);
+                }
 
-        _getAll();
-        $interval(_getAll, 10*60*1000);        
-        // $interval(_getAll, 10000);        
+                _getAll();
 
-        return self;
-      }
-    ]);
+                var promise = $interval(getTweetsBeyond, 10 * 60 * 1000, 0, true, latest);
+
+                $scope.$on('$destroy', function() {
+                    $interval.cancel(promise);
+                });
+
+            
+            }
+        ]);
 }(window.angular));

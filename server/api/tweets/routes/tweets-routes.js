@@ -11,10 +11,8 @@ module.exports = class TweetsRoutes {
 
       router
         .route('/api/tweets/:id')
+        .get(TweetsController.getTweetedAfter)  
         .delete(TweetsController.deleteTweets);
-
-      router
-        .route('/api/tweets/:date')
-        .delete(TweetsController.getTweetedAfter);  
+        
     }
 }

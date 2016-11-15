@@ -14,7 +14,7 @@ const _tweetSchema = {
 	userLocation : String,
 	screenName : String,
 	text : String,
-	tweetedAt : String,
+	tweetedAt : Date,
 	followerCount : Number,
 	subject : String
 }
