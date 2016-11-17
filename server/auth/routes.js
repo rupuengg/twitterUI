@@ -1,43 +1,37 @@
 const StaticDispatcher = require('../commons/static/index');
 
 // auth/routes.js
-module.exports = function(app, passport){
+module.exports.init = function(router, passport){
 	// route for home page
-	app.get('/', function(req, res){
+	router.route('/').get(function(req, res){
 		StaticDispatcher.sendIndex(req, res);
-		// res.render(StaticDispatcher.sendIndex);
 	});
 
-	// route for login form
-	// route for processing the login form
-	// route for signup form
-	// route for processing the signup form
-
 	// route for showing the profile page
-	app.get('/profile', isLoggedIn, function(req, res){
-		// StaticDispatcher.sendIndex(req, res);
+	router.route('/profile').get(isLoggedIn, function(req, res){
 		var response = {
 			success:true,
-			name:JSON.stringify(req.user.twitter.username),
-			picture:JSON.stringify(req.user.twitter.picture)
+			user:{
+				name:JSON.stringify(req.user.twitter.username),
+				picture:JSON.stringify(req.user.twitter.picture)	
+			}
 		};
 		console.log('res',response);
 		res.render('index.html',response);
-		//res.sendFile(process.cwd()+'/client/dev/tweets/templates/tweets.html');
 		
 	});
 
 	// route for logging out
-	app.get('/logout', function(req, res){
+	router.route('/logout').get(function(req, res){
 		req.logout();
 		res.redirect('/');
 	});
 
 	// route for twitter authentication and login
-	app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
+	router.route('/auth/twitter').get(passport.authenticate('twitter', { scope : 'email' }));
 
     // handle the callback after twitter has authenticated the user
-    app.get('/auth/twitter/callback',
+    router.route('/auth/twitter/callback').get(
         passport.authenticate('twitter', {
             successRedirect : '/profile',
             failureRedirect : '/'
@@ -45,17 +39,17 @@ module.exports = function(app, passport){
     );
 
     // send to twitter to do the authentication
-    app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
+    router.route('/connect/twitter').get(passport.authorize('twitter', { scope : 'email' }));
 
     // handle the callback after twitter has authorized the user
-    app.get('/connect/twitter/callback',
+    router.route('/connect/twitter/callback').get(
         passport.authorize('twitter', {
             successRedirect : '/profile',
             failureRedirect : '/'
         }));
 
     // twitter --------------------------------
-    app.get('/unlink/twitter', isLoggedIn, function(req, res) {
+    router.route('/unlink/twitter').get(isLoggedIn, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
         user.save(function(err) {

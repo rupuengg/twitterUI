@@ -31,12 +31,14 @@ app.use(passport.session()); // persistent login sessions
 app.use(cookieParser());
 app.use(flash());
 
-require('./auth/routes')(app, passport);
+RoutesConfig.init(app);
+Routes.init(app, express.Router(),passport);
+
+
+DBConfig.init();
 require('./auth/config/passport')(passport);
 
-RoutesConfig.init(app);
-DBConfig.init();
-Routes.init(app, express.Router());
+
 
 const opts = {
   key: fs.readFileSync(__dirname + '/cert/server.key'),

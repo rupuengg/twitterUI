@@ -30,19 +30,14 @@
     <header style="margin-bottom:90px;color:#ffffff;">
         <div class="navbar navbar-inverse navbar-fixed-top color-tw" role="navigation">
                 <span class="h1">Twitter Miner</span>
-                <% if (success) { %>
-                    <user-section name=<%-name%> picture=<%-picture%> ></user-section>
-                <%}%>
+                <user-section></user-section>
         </div>
         
 
        
     </header>
-    <% if (success) { %>
-        <div style="position:relative;" ui-view></div>
-    <%}else{%>
-        <ng-include src="'./auth/templates/login.html'"></ng-include>
-    <%}%>
+    <div style="position:relative;" ui-view></div>
+    
     
     <footer>
         <div class="navbar navbar-inverse navbar-fixed-bottom color-tw" role="navigation">
@@ -78,24 +73,24 @@
     <script type="text/javascript" src="./bower_components/angular-route/angular-route.js?rev=@@hash"></script>
     <script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="./bower_components/angular-resource/angular-resource.js?rev=@@hash"></script>
- <% if (success) { %>
-<script>
-;(function(ng){
-    'use strict';
-        var user = <%- name%>;
-        console.log(user);
-        ng.module('initial', [])
-            .constant('User', user);
-            }(window.angular));
-    </script>
-     <%}%>
+    
     <script type="text/javascript" src="./app.js?rev=@@hash"></script>
     <script type="text/javascript" src="./app.config.js?rev=@@hash"></script>
-    <script type="text/javascript" src="./common/services/response-interceptor.js"></script>
-    <% if (success) { %>
     <script type="text/javascript" src="./app.route.js?rev=@@hash"></script>
+    <script type="text/javascript" src="./common/services/response-interceptor.js"></script>
     <script type="text/javascript" src="./common/directives/user-section-directive.js"></script>
-    <%}%>
+    <script>
+        (function(w) {
+            w.success = <%-success%>;
+            if (<%-success%>) {
+                w.user = {
+                    name: <%-user.name%>,
+                    picture: <%-user.picture%>
+                };
+            }
+
+        }(window));
+    </script>
     
     <script type="text/javascript" src="./auth/services/login-service.js"></script>
     <script type="text/javascript" src="./auth/controllers/login-controller.js"></script>

@@ -18,8 +18,8 @@
                 controllerAs: 'tweetsCtrl'
             });
     })
-    .run(function($state){
-      $state.go('tweets');
+    .run(function($state,$window){
+      ($window.success)?$state.go('tweets'):$state.go('login');
     });
 }(window.angular));
 

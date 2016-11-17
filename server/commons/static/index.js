@@ -7,8 +7,10 @@ module.exports = class StaticDispatcher {
     res.type('html');	
     var response = {
 			success:Boolean(req.session.passport && req.session.passport.user),
-			name:req.user && JSON.stringify(req.user.twitter.username),
-			picture:req.user && JSON.stringify(req.user.twitter.picture)
+			user:{
+				name:req.user ? JSON.stringify(req.user.twitter.username):'false',
+				picture:req.user ? JSON.stringify(req.user.twitter.picture):'false'
+			}
 		};
       res.render('index.html',response);
     }

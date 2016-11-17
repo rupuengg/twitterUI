@@ -5,12 +5,11 @@
 			restrict : 'E',
 			replace:true,
 			templateUrl : '/common/templates/user-section.html',
-			link:function(scope,el,attr){
-				scope.headerCtrl.name = attr.name;
-				scope.headerCtrl.picture = attr.picture;
-			},
-			controller:function(loginService){
+			controller:function(loginService,$window){
 				var self = this;
+				self.name = $window.user?$window.user.name:undefined;
+				self.picture = $window.user?$window.user.picture:undefined;
+				self.showUser = $window.success;
 				self.logout = function(){
 					loginService.logout();
 				}
