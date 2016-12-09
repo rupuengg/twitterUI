@@ -6,7 +6,9 @@
       '$q',
       'TweetsResource',
       function($q, TweetsResource) {
-        var TweetDAO = function() {};
+        var TweetDAO = function() {
+          this.loading = false;
+        };
 
         TweetDAO.prototype.getAll = function() {
           var _onSuccess = function(tweets) {
@@ -70,9 +72,14 @@
         };
 
         TweetDAO.prototype.getTweetsBeyond = function(date){
+           var self = this;
+           if(self.loading){
+            return;
+           }
+           self.loading = true;
            var _onSuccess = function(tweets) {
             // do something with the response from the server, like extending a model or something
-
+            self.loading=false;
             return tweets; // this will be returned as a resolved promise
           };
 

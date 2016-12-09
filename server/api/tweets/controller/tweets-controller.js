@@ -4,6 +4,7 @@ const TweetsDAO = require('../dao/tweets-dao');
 
 module.exports = class TweetsController {
   static getAll(req, res) {
+    console.log('all');
       TweetsDAO
         .getAll()
         .then(tweets => res.status(200).json(tweets))
@@ -12,7 +13,6 @@ module.exports = class TweetsController {
 
   static getTweetedAfter(req, res) {
     let date = req.params.id;
-    console.log(date);
       TweetsDAO
         .getTweetedAfter(date)
         .then(tweets => res.status(200).json(tweets))

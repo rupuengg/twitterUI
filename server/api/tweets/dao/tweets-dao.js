@@ -7,11 +7,12 @@ const _ = require('lodash');
 
 tweetsSchema.statics.getAll = () => {
     return new Promise((resolve, reject) => {
-        let _query = {};
+        let _query = {"subject" : "Testing Tweets:Strict match"};
 
         Tweets
           .find(_query)
           .sort({tweetedAt:-1})
+          .limit(10)
           .exec((err, tweets) => {
               err ? reject(err)
                   : resolve(tweets);
@@ -21,14 +22,15 @@ tweetsSchema.statics.getAll = () => {
 
 tweetsSchema.statics.getTweetedAfter = function(date){
     return new Promise((resolve, reject) => {
-        date = new Date(date);
-        let _query = {tweetedAt:{$gt:date}};
-        console.log(_query);
+      
+          date = new Date(date);
+          let _query = {"subject" : "Testing Tweets:Strict match","tweetedAt":{$gt:date}};
+        
         Tweets
           .find(_query)
           .sort({'tweetedAt':-1})
+          .limit(10)
           .exec((err, tweets) => {
-            console.log(tweets);
               err ? reject(err)
                   : resolve(tweets);
           });

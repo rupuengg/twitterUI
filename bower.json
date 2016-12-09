@@ -3,7 +3,9 @@
   "main": "twitterUI.js",
   "version": "0.0.1",
   "homepage": "https://github.com//twitterUI",
-  "authors": ["rupuengg <email>"],
+  "authors": [
+    "rupuengg <email>"
+  ],
   "description": "desc",
   "keywords": [],
   "license": "MIT",
@@ -27,7 +29,8 @@
     "angular-route": "~1.4.x",
     "angular-resource": "~1.4.x",
     "bootstrap": "3.3.1",
-    "fontawesome": "~4.3.0"
+    "fontawesome": "~4.3.0",
+    "ngInfiniteScroll": "1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.x"

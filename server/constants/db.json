@@ -1,4 +1,4 @@
 {
-  "localhost": "mongodb://localhost/twitterUI",
+  "localhost": "mongodb://localhost/TwitterData",
   "remote": "mongodb://10.0.1.17/TwitterData"
 }

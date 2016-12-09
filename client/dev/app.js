@@ -4,6 +4,7 @@
   ng.module('twitterUI', [
       'ngResource',
       'ui.router',
-      'ngMessages'
+      'ngMessages',
+      'infinite-scroll'
     ]);
 }(window.angular));

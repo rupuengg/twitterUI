@@ -13,7 +13,8 @@
                     latest;
 
                 self.tweets = [];
-                
+                self.lastTweetDate = null;
+                self.busy = TweetsDAO.loading;
                 self.createTweet = function(tweet) { 
                     TweetsDAO
                         .createTweet(tweet)
@@ -23,19 +24,23 @@
                         .catch($log.error);
                 };
 
-                function _getAll() {
-                    TweetsDAO
-                        .getAll()
-                        .then(function(tweets) {
-                            
-                            self.tweets = tweets.filter(function(tweets) {
+                self.loadTweets = function (date) {
+                    let tweetPromise = TweetsDAO.getTweetsBeyond(date);
+                    if(!tweetPromise)
+                        return;
+                        tweetPromise.then(function(tweets) {
+                            self.tweets = tweets.concat(self.tweets);
+                            /*self.tweets = tweets.filter(function(tweets) {
                                 return !(tweets.subject.indexOf('Loose') >= 0 || tweets.subject.indexOf('Jobs') >= 0);
-                            });
-                            if (self.tweets.length)
+                            });*/
+                            if (self.tweets.length){
                                 latest = self.tweets[0].tweetedAt;
+                                self.lastTweetDate = self.tweets[self.tweets.length-1].tweetedAt;
+                            }
+                            self.busy = TweetsDAO.loading;
                         })
                         .catch($log.error);
-                }
+                };
 
                 self.deleteTweet = function(id) {
                     TweetsDAO
@@ -46,17 +51,9 @@
                         .catch($log.error);
                 };
 
-                function getTweetsBeyond(date) {
-                    TweetsDAO.getTweetsBeyond(date)
-                        .then(function(tweets) {
-                            self.tweets = tweets.concat(self.tweets);
-                        })
-                        .catch($log.error);
-                }
+                
 
-                _getAll();
-
-                var promise = $interval(getTweetsBeyond, 10 * 60 * 1000, 0, true, latest);
+                var promise = $interval(self.loadTweets, 10 * 60 * 1000, 0, true, latest);
 
                 $scope.$on('$destroy', function() {
                     $interval.cancel(promise);

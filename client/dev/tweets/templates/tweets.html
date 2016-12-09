@@ -1,5 +1,5 @@
-<div class="container tweet-container">
-  <div class="col-lg-4 height-fixed" ng-repeat="t in tweetsCtrl.tweets">
+<div class="container-fluid tweet-container" infinite-scroll="tweetsCtrl.loadTweets(tweetsCtrl.lastTweetDate)" infinite-scroll-disabled='tweetsCtrl.busy' infinite-scroll-distance="1">
+  <div class="col-lg-3 height-fixed" ng-repeat="t in tweetsCtrl.tweets">
     <div class="tweet well col-lg-12">
       <p>
         <strong>Tweet Id : </strong>
@@ -23,11 +23,6 @@
         <div class="mail-icon pull-left cursor"></div>
         <div class="share-icon pull-left cursor"></div>
         <div class="follower-icon pull-left cursor"></div>
-        <!-- <span class="glyphicon glyphicon-arrow-left"></span>
-        <span class="glyphicon glyphicon-retweet"></span>
-        <span class="glyphicon glyphicon-envelope"></span>
-        <span class="glyphicon glyphicon-share"></span>
-        <span class="glyphicon glyphicon-user-follow"></span> -->
       </div>
       <p ng-if="tweetsCtrl.new_tweets.indexOf(t.tweetId)>=0">New tweet</p>
     </div>
